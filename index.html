@@ -5,101 +5,218 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            width: 763px;
-            background-color: #629c64c2;
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #bdcebe;
+            margin: 100px;
+            align-items: center;
         }
-    
-        .progress-bar .progress-bar-fill {
-            height: 100%;
-            background-color: #137f16;
-            width: 0px;
-            padding: 0%;
-            margin: 0%;
-            text-align: right;
-            transition: width 1s ease-in-out;
+        .progress-bar {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        width: 100%;
+        height: 20px;
+        width: 500px;
+        text-align: center;
+        background-color: #629c64c2;
+    }
+
+    .progress-bar .progress-bar-fill {
+        height: 100%;
+        background-color: #137f16;
+        width: 0px;
+        padding: 0%;
+        margin: 0%;
+        text-align: right;
+        transition: width 1s ease-in-out;
+    }
+
+        #clock {
+            color: black;
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 40px;
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 120px;
+        }
+
+        #countdown1 {
+            color: black;
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #FasterButton {
+            background-color: #ada397;
+            border-radius: 8px;
+            height: 30px;
+            width: 600px;
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #FasterButton:hover {
+            background-color: #7d7262;
+        }
+
+        #FasterText {
+            color: black;
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            color: black;
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
         }
     </style>
 </head>
 <body>
-    <div class="clock">16:20:35</div>
-    <div id="countdown1">shnopek</div>
-    <div class="countdownxx">noper</div>
-    <div id="countdown">Start testtimer</div>
-
-    <script>
-        // Your JavaScript goes here!
-       
-
-        function countdownTimer() {
-        const difference = +new Date("2024-01-01") - +new Date();
-        let remaining = "Time's up!";
-
-        if (difference > 0) {
-            const parts = {
-            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-            minutes: Math.floor((difference / 1000 / 60) % 60),
-            seconds: Math.floor((difference / 1000) % 60),
-            };
-            remaining = Object.keys(parts).map(part => {
-            return `${parts[part]} ${part}`;  
-            }).join(" ");
-        }
-
-        document.getElementById("countdown").innerHTML = remaining;
-        }
-        window.addEventListener("load", function() {
-        // Update the timer every second
-        setInterval(countdownTimer, 1000);
-    });
-    </script>
+    <div id="clock">16:20:35</div>
+    
+    <button id="FasterButton">Be quicker, I'm losing my patience!</button>
+    <div id="FasterText"></div>
+   
     <div class="progress-bar">
         <div class="progress-bar-fill"></div>
     </div>
+    <div id="countdown1">Done</div>
+    <div id="countdown">Tt has spent</div>
     
-
-    
-        <script>
-            const StartingDifference = 20000;//+new Date("2023-09-029 20:30:05") - +new Date(); //in millisecond
-            const EndDate = +new Date() + StartingDifference;
-            // Your JavaScript goes here!
-            function countdownTimer() {
-                const difference = EndDate - +new Date();
-                let remaining = "Time's up!";
-                let progress = 0;
-    
-                if (difference > 0) {
-                    const getlog = (arg) => {
-                        return Math.log(arg) / Math.log(2);
-                        };
-
-                      
-                    const total = StartingDifference/1000 ; // Total duration in seconds
-                    elapsed = Math.floor((total - (difference / 1000))) / total; //elapsed proportion, max q
-                    // elapsed 0 to 1, map to 1 to 2. so log 0 to 1
-                    // i want it to be 0 to 1. so first map to 1 to 2
-                    newelapsed = Math.round((getlog((elapsed*5+1)))*300); // so the maximum is get log_2^elapsed, max 500
-                    progress = 100 - newelapsed;
-                    remaining = `${Math.floor(difference / (1000 * 60 * 60))}:${Math.floor((difference / (1000 * 60)) % 60)}:${Math.floor((difference / 1000) % 60)}`;
-                }
-    
-                document.getElementById("countdown").innerHTML = remaining;
-                document.getElementById("countdown1").innerHTML = newelapsed;
-                document.querySelector(".progress-bar .progress-bar-fill").style.width = `${newelapsed}px`;
-            }
-    
-            // Call the countdownTimer function when the page finishes loading
-            window.addEventListener("load", function() {
-                // Update the timer and progress bar every second
-                setInterval(countdownTimer, 1000);
-            });
-        </script>
    
-    <form method="get" action="G10_exercise_20230922.pdf ">
-        <button type="submit">Download the geo exercise</button>
-    </form>
+    <script>
+        let currentIndex = 0;
+         const textList = 
+            [
+
+            "Where's my pen?",
+            "This desk setup is really bothering me, I couldn't find anything. I couldn't even find my pen. Let me organize it.", 
+            "Hang on, I'm organizing my stuff",
+            "So there's my pen!",
+            "Just realized how dirty my computer screen is. Let me wipe it. Just give me a sec.", 
+            "Wipe, wipe! Wipe, wipe!", 
+            "Let me get my alcoholic tissues, Wipe, wipe! Wipe, wipe!", 
+            "Why is my computer soooo slow. Let me save all my files and restart it.",
+            "Look, here's a youtube video I'm half-way through of. Let me just finish it.",
+            "Sorry but this video is really fun. I don't believe it, but I like it anyway:)",
+            'Procrastinate with me: https://www.youtube.com/watch?v=Mcd_hBS48wo',
+            'Procrastinate with me: https://www.youtube.com/watch?v=Mcd_hBS48wo',
+            "You don't like the video? Fine :(",
+            "Fine. Let's get back to work. Where was I?",
+            "while I'm waiting for my computer to restart, I might as well check my messages",
+            "oh looks like she's on a vacation. The view in this picture looks amazing. I wonder where that is",
+            "Should I ask her where her vacation destiny is? Yes. no. yes. no.",
+            "I'll just try to geoguess her location",
+            "So we are in the northern hemisphere. umm. I'm seeing a lot of cone trees. So.. US? no. China? doesn't seem right.",
+            "Think I should really improve my geoguessr skills",
+            "Opening geoguessr and geotips.net",
+            "Bruhhh, I don't really want to memorize anything after that bio test. Let's do something else.",
+            "Let me open a file for this",
+            "Adding a title. bold and italicized.",
+            "no. bold without italicizing works WAY better.",
+            "just realized a thing: I'm hungryyyy",
+            "Ohh, there's chocolate right beside my desk",
+            "which one should I eat today? Milk, or dark, or dark chocolate with nuts?",
+            "Let me find a random number generator online for this",
+            "Ok so milk chocolate then",
+            "This taste gooood. Let's also have the dark chocalate",
+            "I always thought that:",
+            "chocalate should always be accompanied by milk",
+            "and cookies!",
+            "Lemme go to the kitchen to get those",
+            "yummy yummy yummy yummy yummy yummy"
+        
+        ];
+        const StartDate = +new Date();
+        let barprogress = 0;
+        let count = 0;
+        let annoyed = false;
+        let happy = false;
+        let DelayedProgress = 0;
+
+        function countdownTimer() {
+            const elapsed = Math.floor((+new Date() - StartDate) / 1000); // Elapsed time in seconds
+            if (!annoyed) {
+                barprogress = barprogress + 1 / (elapsed + 60) / (elapsed + 60); // Infinite series sum to 1/60.
+            } else {
+                const text = "Please be patient. I'm already trying my best:(";
+                document.getElementById("FasterText").innerText = text;
+                DelayedProgress = 1 / (elapsed + 60) / (elapsed + 60); 
+            }
+            if (happy) {
+                const text = "Fine, I'll be quicker.";
+                document.getElementById("FasterText").innerText = text;
+                barprogress = barprogress + DelayedProgress;
+            }
+
+            const barWidth = Math.floor(barprogress * 60 * 500); // Make the progress bar end at 500px
+            const readableElapsed = `${Math.floor((+new Date() - StartDate) / (1000 * 60 * 60))} hours ${Math.floor(
+                ((+new Date() - StartDate) / (1000 * 60)) % 60)} minutes ${Math.floor(((+new Date() - StartDate) / 1000) % 60)} seconds`;
+            const expectedTime= (elapsed/barWidth*(500-barWidth))*1000 ;
+            const readableExpected = `${Math.floor((expectedTime) / (1000 * 60 * 60))} hours ${Math.floor(
+                ((expectedTime) / (1000 * 60)) % 60)} minutes ${Math.floor(((expectedTime) / 1000) % 60)} seconds`;
+         
+
+            document.getElementById("countdown1").innerHTML = `The task is ${barprogress * 60 * 100}% done`;
+            document.querySelector(".progress-bar .progress-bar-fill").style.width = `${barWidth}px`;
+            document.getElementById("countdown").innerHTML = `Tt has spent ${readableElapsed} on this thing and needs to spend ${readableExpected} more to finish the task.`;
+            
+            annoyed = false;
+            happy = false;
+           
+            // Get the text element
+           
+
+            // Display the current text
+            
+
+            // Increment the index for the next text
+            currentIndex = Math.floor((elapsed)/5)  % textList.length; //change every 5 seconds
+            const textElement = document.getElementById("clock");
+            textElement.textContent = textList[currentIndex];
+            
+
+        // Call the displayNextText function every 10 seconds
+        setInterval(displayNextText, 10000);
+            
+        }
+        // List of texts
+            
+           
+
+        // Call the countdownTimer function when the page finishes loading
+        window.addEventListener("load", function () {
+            // Update the timer and progress bar every second
+            setInterval(countdownTimer, 1000);
+
+            const displayTextButton = document.getElementById("FasterButton");
+            displayTextButton.addEventListener("click", displayText);
+        });
+
+        let response = "annoyed";
+        function displayText() {
+            
+            if (response === "annoyed") {
+                annoyed = true;
+                response = "happy";
+            } else {
+                happy = true;
+                response = "annoyed";
+            }
+        }
+    </script>
+   
+  
 </body>
 </html>
