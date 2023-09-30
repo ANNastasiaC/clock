@@ -4,28 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            width: 763px;
+            background-color: #629c64c2;
+        }
+    
+        .progress-bar .progress-bar-fill {
+            height: 100%;
+            background-color: #137f16;
+            width: 0px;
+            padding: 0%;
+            margin: 0%;
+            text-align: right;
+            transition: width 1s ease-in-out;
+        }
+    </style>
 </head>
 <body>
     <div class="clock">16:20:35</div>
+    <div id="countdown1">shnopek</div>
+    <div class="countdownxx">noper</div>
+    <div id="countdown">Start testtimer</div>
+
     <script>
         // Your JavaScript goes here!
-        let clock = document.querySelector('.clock')
+       
 
-        function updateTime(){
-        let hours = new Date().getHours();
-        let minutes = new Date().getMinutes();
-        let seconds = new Date().getSeconds();
+        function countdownTimer() {
+        const difference = +new Date("2024-01-01") - +new Date();
+        let remaining = "Time's up!";
 
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        clock.innerHTML = `${hours}:${minutes}:${seconds}`;
-
-        setTimeout(updateTime, 1000);
+        if (difference > 0) {
+            const parts = {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60),
+            };
+            remaining = Object.keys(parts).map(part => {
+            return `${parts[part]} ${part}`;  
+            }).join(" ");
         }
-        updateTime();
-      </script>
+
+        document.getElementById("countdown").innerHTML = remaining;
+        }
+        window.addEventListener("load", function() {
+        // Update the timer every second
+        setInterval(countdownTimer, 1000);
+    });
+    </script>
+    <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
+    </div>
+    
+
+    
+        <script>
+            const StartingDifference = 20000;//+new Date("2023-09-029 20:30:05") - +new Date(); //in millisecond
+            const EndDate = +new Date() + StartingDifference;
+            // Your JavaScript goes here!
+            function countdownTimer() {
+                const difference = EndDate - +new Date();
+                let remaining = "Time's up!";
+                let progress = 0;
+    
+                if (difference > 0) {
+                    const getlog = (arg) => {
+                        return Math.log(arg) / Math.log(2);
+                        };
+
+                      
+                    const total = StartingDifference/1000 ; // Total duration in seconds
+                    elapsed = Math.floor((total - (difference / 1000))) / total; //elapsed proportion, max q
+                    // elapsed 0 to 1, map to 1 to 2. so log 0 to 1
+                    // i want it to be 0 to 1. so first map to 1 to 2
+                    newelapsed = Math.round((getlog((elapsed*5+1)))*300); // so the maximum is get log_2^elapsed, max 500
+                    progress = 100 - newelapsed;
+                    remaining = `${Math.floor(difference / (1000 * 60 * 60))}:${Math.floor((difference / (1000 * 60)) % 60)}:${Math.floor((difference / 1000) % 60)}`;
+                }
+    
+                document.getElementById("countdown").innerHTML = remaining;
+                document.getElementById("countdown1").innerHTML = newelapsed;
+                document.querySelector(".progress-bar .progress-bar-fill").style.width = `${newelapsed}px`;
+            }
+    
+            // Call the countdownTimer function when the page finishes loading
+            window.addEventListener("load", function() {
+                // Update the timer and progress bar every second
+                setInterval(countdownTimer, 1000);
+            });
+        </script>
+   
     <form method="get" action="G10_exercise_20230922.pdf ">
         <button type="submit">Download the geo exercise</button>
     </form>
